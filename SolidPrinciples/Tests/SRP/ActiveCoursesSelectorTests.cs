@@ -18,6 +18,7 @@ namespace Tests.SRP
 						new MedicationCourse(
 							preparationTerm: String.Empty,
 							status: status,
-							issuances: Enumerable.Empty<Issuance>())));
+							issuances: Enumerable.Empty<Issuance>(),
+							Source.Local)));
 	}
 }

@@ -20,7 +20,7 @@ namespace Tests.SRP
 			Boolean expectedToCancelIssuances)
 		{
 			var issuances = Enumerable.Empty<Issuance>();
-			var course = new MedicationCourse("TestPreparation", CourseStatus.Active, issuances);
+			var course = new MedicationCourse("TestPreparation", CourseStatus.Active, issuances, Source.Local);
 			var reasonForEnding = "Prescribing error";
 			var mockLogger = new Mock<ILogger>();
 			var mockIssuanceCanceller = new Mock<IMedicationIssuanceCanceller>();
