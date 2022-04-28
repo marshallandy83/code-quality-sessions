@@ -14,6 +14,6 @@ namespace Tests.SRP
 				expectedShouldCancel,
 				new ActiveIssuancesSelector()
 					.ShouldCancel(
-						new Issuance(status)));
+						new Issuance(status, Source.Local)));
 	}
 }

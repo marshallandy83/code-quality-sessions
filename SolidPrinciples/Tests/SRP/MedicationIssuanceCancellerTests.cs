@@ -12,7 +12,7 @@ namespace Tests.SRP
 		[InlineData(false, IssuanceStatus.Active, null)]
 		public void CancelTests(Boolean shouldCancel, IssuanceStatus expectedStatus, String expectedReasonForCancelling)
 		{
-			var issuance = new Issuance(IssuanceStatus.Active);
+			var issuance = new Issuance(IssuanceStatus.Active, Source.Local);
 			var reasonForCancelling = "Prescribing error";
 
 			var mockSelector = new Mock<IMedicationIssuanceSelector>();
