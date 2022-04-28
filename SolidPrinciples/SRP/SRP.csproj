@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleLogger.cs" />
+    <Compile Include="ILogger.cs" />
     <Compile Include="Issuance.cs" />
     <Compile Include="CourseStatus.cs" />
     <Compile Include="IssuanceStatus.cs" />

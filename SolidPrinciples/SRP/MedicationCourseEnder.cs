@@ -5,6 +5,10 @@ namespace SRP
 {
 	public class MedicationCourseEnder
 	{
+		private readonly ILogger _logger;
+
+		public MedicationCourseEnder(ILogger logger) => _logger = logger;
+
 		public void End(MedicationCourse medicationCourse, String reasonForEnding)
 		{
 			if (medicationCourse.Status == CourseStatus.Active)
@@ -20,7 +24,7 @@ namespace SRP
 			}
 			else
 			{
-				Console.WriteLine($"{medicationCourse.PreparationTerm} course cannot be ended.");
+				_logger.Log($"{medicationCourse.PreparationTerm} course cannot be ended.");
 				return;
 			}
 		}
