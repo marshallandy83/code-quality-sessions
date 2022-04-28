@@ -12,7 +12,7 @@ namespace SRP
 				medicationCourse.Status = CourseStatus.Ended;
 				medicationCourse.ReasonForEnding = reasonForEnding;
 
-				foreach (var issuance in medicationCourse.Issuances.Where(i => i.Status == IssuanceStatus.Active && i.AddedBy == Source.Local))
+				foreach (var issuance in medicationCourse.Issuances.Where(i => i.Status == IssuanceStatus.Active))
 				{
 					issuance.Status = IssuanceStatus.Cancelled;
 					issuance.ReasonForCancelling = reasonForEnding;
