@@ -7,7 +7,7 @@ namespace SRP
 	{
 		public void End(MedicationCourse medicationCourse, String reasonForEnding)
 		{
-			if (medicationCourse.Status == CourseStatus.Active && medicationCourse.AddedBy == Source.Local)
+			if (medicationCourse.Status == CourseStatus.Active)
 			{
 				medicationCourse.Status = CourseStatus.Ended;
 				medicationCourse.ReasonForEnding = reasonForEnding;

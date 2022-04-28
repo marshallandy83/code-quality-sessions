@@ -8,19 +8,16 @@ namespace SRP
 		public MedicationCourse(
 			String preparationTerm,
 			CourseStatus status,
-			IEnumerable<Issuance> issuances,
-			Source addedBy)
+			IEnumerable<Issuance> issuances)
 		{
 			PreparationTerm = preparationTerm;
 			Status = status;
 			Issuances = issuances;
-			AddedBy = addedBy;
 		}
 
 		public String PreparationTerm { get; }
 		public CourseStatus Status { get; set; }
 		public IEnumerable<Issuance> Issuances { get; }
 		public String ReasonForEnding { get; set; }
-		public Source AddedBy { get; }
 	}
 }

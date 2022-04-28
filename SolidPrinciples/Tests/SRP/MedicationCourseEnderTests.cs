@@ -7,12 +7,10 @@ namespace Tests.SRP
 	public class MedicationCourseEnderTests
 	{
 		[Theory]
-		[InlineData(Source.Local, CourseStatus.Active, IssuanceStatus.Active, CourseStatus.Ended, "Prescribing error", IssuanceStatus.Cancelled, "Prescribing error")]
-		[InlineData(Source.Local, CourseStatus.Active, IssuanceStatus.Cancelled, CourseStatus.Ended, "Prescribing error", IssuanceStatus.Cancelled, null)]
-		[InlineData(Source.Local, CourseStatus.Ended, IssuanceStatus.Active, CourseStatus.Ended, null, IssuanceStatus.Active, null)]
-		[InlineData(Source.External, CourseStatus.Active, IssuanceStatus.Active, CourseStatus.Active, null, IssuanceStatus.Active, null)]
+		[InlineData(CourseStatus.Active, IssuanceStatus.Active, CourseStatus.Ended, "Prescribing error", IssuanceStatus.Cancelled, "Prescribing error")]
+		[InlineData(CourseStatus.Active, IssuanceStatus.Cancelled, CourseStatus.Ended, "Prescribing error", IssuanceStatus.Cancelled, null)]
+		[InlineData(CourseStatus.Ended, IssuanceStatus.Active, CourseStatus.Ended, null, IssuanceStatus.Active, null)]
 		public void EndTests(
-			Source courseAddedBy,
 			CourseStatus courseStatus,
 			IssuanceStatus issuanceStatus,
 			CourseStatus expectedCourseStatus,
@@ -21,7 +19,7 @@ namespace Tests.SRP
 			String expectedReasonForCancelling)
 		{
 			var issuance = new Issuance(issuanceStatus);
-			var course = new MedicationCourse("TestPreparation", courseStatus, new[] { issuance }, courseAddedBy);
+			var course = new MedicationCourse("TestPreparation", courseStatus, new[] { issuance });
 			var reasonForEnding = "Prescribing error";
 
 			new MedicationCourseEnder().End(course, reasonForEnding);
