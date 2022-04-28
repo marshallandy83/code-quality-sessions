@@ -1,13 +1,17 @@
 ﻿using System;
-using System.Linq;
 
 namespace SRP
 {
 	public class MedicationCourseEnder
 	{
 		private readonly ILogger _logger;
+		private readonly IMedicationIssuanceCanceller _issuanceCanceller;
 
-		public MedicationCourseEnder(ILogger logger) => _logger = logger;
+		public MedicationCourseEnder(ILogger logger, IMedicationIssuanceCanceller issuanceCanceller)
+		{
+			_logger = logger;
+			_issuanceCanceller = issuanceCanceller;
+		}
 
 		public void End(MedicationCourse medicationCourse, String reasonForEnding)
 		{
@@ -15,12 +19,7 @@ namespace SRP
 			{
 				medicationCourse.Status = CourseStatus.Ended;
 				medicationCourse.ReasonForEnding = reasonForEnding;
-
-				foreach (var issuance in medicationCourse.Issuances.Where(i => i.Status == IssuanceStatus.Active))
-				{
-					issuance.Status = IssuanceStatus.Cancelled;
-					issuance.ReasonForCancelling = reasonForEnding;
-				}
+				_issuanceCanceller.Cancel(medicationCourse.Issuances, reasonForEnding);
 			}
 			else
 			{

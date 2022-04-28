@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Moq;
 using SRP;
 using Xunit;
@@ -8,31 +10,33 @@ namespace Tests.SRP
 	public class MedicationCourseEnderTests
 	{
 		[Theory]
-		[InlineData(CourseStatus.Active, IssuanceStatus.Active, CourseStatus.Ended, "Prescribing error", false, IssuanceStatus.Cancelled, "Prescribing error")]
-		[InlineData(CourseStatus.Active, IssuanceStatus.Cancelled, CourseStatus.Ended, "Prescribing error", false, IssuanceStatus.Cancelled, null)]
-		[InlineData(CourseStatus.Ended, IssuanceStatus.Active, CourseStatus.Ended, null, true, IssuanceStatus.Active, null)]
+		[InlineData(CourseStatus.Active, CourseStatus.Ended, "Prescribing error", false, true)]
+		[InlineData(CourseStatus.Ended, CourseStatus.Ended, null, true, false)]
 		public void EndTests(
-			CourseStatus courseStatus,
-			IssuanceStatus issuanceStatus,
-			CourseStatus expectedCourseStatus,
+			CourseStatus status,
+			CourseStatus expectedStatus,
 			String expectedReasonForEnding,
 			Boolean expectedToLogError,
-			IssuanceStatus expectedIssuanceStatus,
-			String expectedReasonForCancelling)
+			Boolean expectedToCancelIssuances)
 		{
-			var issuance = new Issuance(issuanceStatus);
-			var course = new MedicationCourse("TestPreparation", courseStatus, new[] { issuance });
+			var issuances = Enumerable.Empty<Issuance>();
+			var course = new MedicationCourse("TestPreparation", status, issuances);
 			var reasonForEnding = "Prescribing error";
 			var mockLogger = new Mock<ILogger>();
+			var mockIssuanceCanceller = new Mock<IMedicationIssuanceCanceller>();
 
-			new MedicationCourseEnder(mockLogger.Object).End(course, reasonForEnding);
+			new MedicationCourseEnder(mockLogger.Object, mockIssuanceCanceller.Object).End(course, reasonForEnding);
 
-			Assert.Equal(expectedCourseStatus, course.Status);
+			Assert.Equal(expectedStatus, course.Status);
 			Assert.Equal(expectedReasonForEnding, course.ReasonForEnding);
-			Assert.Equal(expectedIssuanceStatus, issuance.Status);
-			Assert.Equal(expectedReasonForCancelling, issuance.ReasonForCancelling);
 
 			mockLogger.Verify(mock => mock.Log(It.Is<String>(match => match == "TestPreparation course cannot be ended.")), expectedToLogError ? Times.Once : Times.Never);
+
+			mockIssuanceCanceller.Verify(mock =>
+				mock.Cancel(
+					It.Is<IEnumerable<Issuance>>(match => match == issuances),
+					It.Is<String>(match => match == reasonForEnding)),
+				expectedToCancelIssuances ? Times.Once : Times.Never);
 		}
 	}
 }

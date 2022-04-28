@@ -43,9 +43,11 @@
   <ItemGroup>
     <Compile Include="ConsoleLogger.cs" />
     <Compile Include="ILogger.cs" />
+    <Compile Include="IMedicationIssuanceCanceller.cs" />
     <Compile Include="Issuance.cs" />
     <Compile Include="CourseStatus.cs" />
     <Compile Include="IssuanceStatus.cs" />
+    <Compile Include="MedicationIssuanceCanceller.cs" />
     <Compile Include="MedicationCourse.cs" />
     <Compile Include="MedicationCourseEnder.cs" />
     <Compile Include="PrescriptionType.cs" />
