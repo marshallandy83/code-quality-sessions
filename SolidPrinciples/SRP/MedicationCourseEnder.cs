@@ -5,9 +5,9 @@ namespace SRP
 {
 	public class MedicationCourseEnder
 	{
-		public void End(MedicationCourse medicationCourse, String reasonForEnding)
+		public void End(MedicationCourse medicationCourse, String reasonForEnding, Boolean allowExternalEnding)
 		{
-			if (medicationCourse.Status == CourseStatus.Active && medicationCourse.AddedBy == Source.Local)
+			if (medicationCourse.Status == CourseStatus.Active && (medicationCourse.AddedBy == Source.Local || allowExternalEnding))
 			{
 				medicationCourse.Status = CourseStatus.Ended;
 				medicationCourse.ReasonForEnding = reasonForEnding;
