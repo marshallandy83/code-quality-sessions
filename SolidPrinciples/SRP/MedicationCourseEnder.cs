@@ -6,16 +6,18 @@ namespace SRP
 	{
 		private readonly ILogger _logger;
 		private readonly IMedicationIssuanceCanceller _issuanceCanceller;
+		private readonly IMedicationCourseSelector _selector;
 
-		public MedicationCourseEnder(ILogger logger, IMedicationIssuanceCanceller issuanceCanceller)
+		public MedicationCourseEnder(ILogger logger, IMedicationIssuanceCanceller issuanceCanceller, IMedicationCourseSelector selector)
 		{
 			_logger = logger;
 			_issuanceCanceller = issuanceCanceller;
+			_selector = selector;
 		}
 
 		public void End(MedicationCourse medicationCourse, String reasonForEnding)
 		{
-			if (medicationCourse.Status == CourseStatus.Active)
+			if (_selector.ShouldEnd(medicationCourse))
 			{
 				medicationCourse.Status = CourseStatus.Ended;
 				medicationCourse.ReasonForEnding = reasonForEnding;
