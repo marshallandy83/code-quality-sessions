@@ -41,11 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveIssuancesSelector.cs" />
     <Compile Include="ActiveCoursesSelector.cs" />
     <Compile Include="ConsoleLogger.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="IMedicationCourseSelector.cs" />
     <Compile Include="IMedicationIssuanceCanceller.cs" />
+    <Compile Include="IMedicationIssuanceSelector.cs" />
     <Compile Include="Issuance.cs" />
     <Compile Include="CourseStatus.cs" />
     <Compile Include="IssuanceStatus.cs" />

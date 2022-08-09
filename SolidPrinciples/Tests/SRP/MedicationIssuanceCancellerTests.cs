@@ -1,4 +1,5 @@
 ﻿using System;
+using Moq;
 using SRP;
 using Xunit;
 
@@ -7,17 +8,21 @@ namespace Tests.SRP
 	public class MedicationIssuanceCancellerTests
 	{
 		[Theory]
-		[InlineData(IssuanceStatus.Active, IssuanceStatus.Cancelled, "Prescribing error")]
-		[InlineData(IssuanceStatus.Cancelled, IssuanceStatus.Cancelled, null)]
-		public void CancelTests(IssuanceStatus status, IssuanceStatus expectedStatus, String expectedReasonForCancelling)
+		[InlineData(true, IssuanceStatus.Cancelled, "Prescribing error")]
+		[InlineData(false, IssuanceStatus.Active, null)]
+		public void CancelTests(Boolean shouldCancel, IssuanceStatus expectedStatus, String expectedReasonForCancelling)
 		{
-			var issuance = new Issuance(status);
+			var issuance = new Issuance(IssuanceStatus.Active);
 			var reasonForCancelling = "Prescribing error";
 
-			new MedicationIssuanceCanceller().Cancel(new[] { issuance }, reasonForCancelling);
+			var mockSelector = new Mock<IMedicationIssuanceSelector>();
+			mockSelector.Setup(mock => mock.ShouldCancel(It.IsAny<Issuance>())).Returns(shouldCancel);
+
+			new MedicationIssuanceCanceller(mockSelector.Object).Cancel(new[] { issuance }, reasonForCancelling);
 
 			Assert.Equal(expectedStatus, issuance.Status);
 			Assert.Equal(expectedReasonForCancelling, issuance.ReasonForCancelling);
+			mockSelector.Verify(mock => mock.ShouldCancel(It.Is<Issuance>(match => match == issuance)));
 		}
 	}
 }
