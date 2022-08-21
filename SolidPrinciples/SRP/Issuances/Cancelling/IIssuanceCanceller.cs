@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SRP
+namespace SRP.Issuances.Cancelling
 {
-	public interface IMedicationIssuanceCanceller
+	public interface IIssuanceCanceller
 	{
 		void Cancel(IEnumerable<Issuance> issuances, String reasonForCancelling);
 	}

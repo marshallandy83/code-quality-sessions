@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using SRP.Issuances;
 
-namespace SRP
+namespace SRP.Courses
 {
-	public class MedicationCourse
+	public class Course
 	{
-		public MedicationCourse(
+		public Course(
 			String preparationTerm,
-			CourseStatus status,
+			Status status,
 			IEnumerable<Issuance> issuances,
 			Source addedBy)
 		{
@@ -18,7 +19,7 @@ namespace SRP
 		}
 
 		public String PreparationTerm { get; }
-		public CourseStatus Status { get; set; }
+		public Status Status { get; set; }
 		public IEnumerable<Issuance> Issuances { get; }
 		public String ReasonForEnding { get; set; }
 		public Source AddedBy { get; }

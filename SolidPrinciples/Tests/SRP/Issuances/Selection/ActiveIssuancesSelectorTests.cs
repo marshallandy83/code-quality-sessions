@@ -1,15 +1,14 @@
 ﻿using System;
-using SRP;
 using Xunit;
 
-namespace Tests.SRP
+namespace SRP.Issuances.Selection
 {
 	public class ActiveIssuancesSelectorTests
 	{
 		[Theory]
-		[InlineData(IssuanceStatus.Active, true)]
-		[InlineData(IssuanceStatus.Cancelled, false)]
-		public void ShouldCancelTests(IssuanceStatus status, Boolean expectedShouldCancel) =>
+		[InlineData(Status.Active, true)]
+		[InlineData(Status.Cancelled, false)]
+		public void ShouldCancelTests(Status status, Boolean expectedShouldCancel) =>
 			Assert.Equal(
 				expectedShouldCancel,
 				new ActiveIssuancesSelector()

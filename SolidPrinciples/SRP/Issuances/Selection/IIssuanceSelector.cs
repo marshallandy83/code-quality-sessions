@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SRP
+namespace SRP.Issuances.Selection
 {
-	public interface IMedicationIssuanceSelector
+	public interface IIssuanceSelector
 	{
 		Boolean ShouldCancel(Issuance issuance);
 	}

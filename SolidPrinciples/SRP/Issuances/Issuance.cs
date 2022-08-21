@@ -1,16 +1,16 @@
 ﻿using System;
 
-namespace SRP
+namespace SRP.Issuances
 {
 	public class Issuance
 	{
-		public Issuance(IssuanceStatus status, Source addedBy)
+		public Issuance(Status status, Source addedBy)
 		{
 			Status = status;
 			AddedBy = addedBy;
 		}
 
-		public IssuanceStatus Status { get; set; }
+		public Status Status { get; set; }
 		public String ReasonForCancelling { get; set; }
 		public Source AddedBy { get; }
 	}

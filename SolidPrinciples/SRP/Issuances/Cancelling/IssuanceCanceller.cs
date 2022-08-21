@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SRP.Issuances.Selection;
 
-namespace SRP
+namespace SRP.Issuances.Cancelling
 {
-	public class MedicationIssuanceCanceller : IMedicationIssuanceCanceller
+	public class IssuanceCanceller : IIssuanceCanceller
 	{
-		private readonly IMedicationIssuanceSelector _selector;
+		private readonly IIssuanceSelector _selector;
 
-		public MedicationIssuanceCanceller(IMedicationIssuanceSelector selector) => _selector = selector;
+		public IssuanceCanceller(IIssuanceSelector selector) => _selector = selector;
 
 		public void Cancel(IEnumerable<Issuance> issuances, String reasonForCancelling)
 		{
 			foreach (var issuance in issuances.Where(_selector.ShouldCancel))
 			{
-				issuance.Status = IssuanceStatus.Cancelled;
+				issuance.Status = Status.Cancelled;
 				issuance.ReasonForCancelling = reasonForCancelling;
 			}
 		}

@@ -1,4 +1,10 @@
 ﻿using System;
+using SRP.Courses;
+using SRP.Courses.Ending;
+using SRP.Courses.Selection;
+using SRP.Issuances.Cancelling;
+using SRP.Issuances.Selection;
+using SRP.Logging;
 
 namespace SRP
 {
@@ -9,11 +15,11 @@ namespace SRP
 		{
 			Int32 customerNumber = Int32.Parse(args[0]);
 
-			var courseEnder = new MedicationCourseEnder(
+			var courseEnder = new CourseEnder(
 				new ConsoleLogger(),
-				new MedicationIssuanceCanceller(
-					customerNumber == 1 ? (IMedicationIssuanceSelector)new ActiveAndLocalIssuancesSelector() : new ActiveIssuancesSelector()),
-				customerNumber == 1 ? (IMedicationCourseSelector)new ActiveAndLocalCoursesSelector() : new ActiveCoursesSelector());
+				new IssuanceCanceller(
+					customerNumber == 1 ? (IIssuanceSelector)new ActiveAndLocalIssuancesSelector() : new ActiveIssuancesSelector()),
+				customerNumber == 1 ? (ICourseSelector)new ActiveAndLocalCoursesSelector() : new ActiveCoursesSelector());
 		}
 	}
 }

@@ -1,32 +1,34 @@
 ﻿using System;
+using SRP.Courses.Selection;
+using SRP.Issuances.Cancelling;
+using SRP.Logging;
 
-namespace SRP
+namespace SRP.Courses.Ending
 {
-	public class MedicationCourseEnder
+	public class CourseEnder
 	{
 		private readonly ILogger _logger;
-		private readonly IMedicationIssuanceCanceller _issuanceCanceller;
-		private readonly IMedicationCourseSelector _selector;
+		private readonly IIssuanceCanceller _issuanceCanceller;
+		private readonly ICourseSelector _selector;
 
-		public MedicationCourseEnder(ILogger logger, IMedicationIssuanceCanceller issuanceCanceller, IMedicationCourseSelector selector)
+		public CourseEnder(ILogger logger, IIssuanceCanceller issuanceCanceller, ICourseSelector selector)
 		{
 			_logger = logger;
 			_issuanceCanceller = issuanceCanceller;
 			_selector = selector;
 		}
 
-		public void End(MedicationCourse medicationCourse, String reasonForEnding)
+		public void End(Course medicationCourse, String reasonForEnding)
 		{
 			if (_selector.ShouldEnd(medicationCourse))
 			{
-				medicationCourse.Status = CourseStatus.Ended;
+				medicationCourse.Status = Status.Ended;
 				medicationCourse.ReasonForEnding = reasonForEnding;
 				_issuanceCanceller.Cancel(medicationCourse.Issuances, reasonForEnding);
 			}
 			else
 			{
 				_logger.Log($"{medicationCourse.PreparationTerm} course cannot be ended.");
-				return;
 			}
 		}
 	}

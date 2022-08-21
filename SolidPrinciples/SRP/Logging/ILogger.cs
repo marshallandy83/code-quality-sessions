@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SRP
+namespace SRP.Logging
 {
 	public interface ILogger
 	{

@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Linq;
-using SRP;
+using SRP.Issuances;
 using Xunit;
 
-namespace Tests.SRP
+namespace SRP.Courses.Selection
 {
 	public class ActiveAndLocalCoursesSelectorTests
 	{
 		[Theory]
-		[InlineData(Source.Local, CourseStatus.Active, true)]
-		[InlineData(Source.Local, CourseStatus.Ended, false)]
-		[InlineData(Source.External, CourseStatus.Active, false)]
-		public void ShouldEndTests(Source addedBy, CourseStatus status, Boolean expectedShouldEnd) =>
+		[InlineData(Source.Local, Status.Active, true)]
+		[InlineData(Source.Local, Status.Ended, false)]
+		[InlineData(Source.External, Status.Active, false)]
+		public void ShouldEndTests(Source addedBy, Status status, Boolean expectedShouldEnd) =>
 			Assert.Equal(
 				expectedShouldEnd,
 				new ActiveAndLocalCoursesSelector()
 					.ShouldEnd(
-						new MedicationCourse(
+						new Course(
 							preparationTerm: String.Empty,
 							status: status,
 							issuances: Enumerable.Empty<Issuance>(),
