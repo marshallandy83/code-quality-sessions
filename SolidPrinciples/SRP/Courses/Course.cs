@@ -4,7 +4,7 @@ using SRP.Issuances;
 
 namespace SRP.Courses
 {
-	public class Course
+	public class Course : ICourse
 	{
 		public Course(
 			String preparationTerm,

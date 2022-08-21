@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Courses\ICourse.cs" />
     <Compile Include="Courses\Selection\ActiveAndLocalCoursesSelector.cs" />
     <Compile Include="Issuances\Selection\ActiveAndLocalIssuancesSelector.cs" />
     <Compile Include="Issuances\Selection\ActiveIssuancesSelector.cs" />

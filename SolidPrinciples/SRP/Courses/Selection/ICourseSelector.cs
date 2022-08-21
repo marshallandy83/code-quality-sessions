@@ -4,6 +4,6 @@ namespace SRP.Courses.Selection
 {
 	public interface ICourseSelector
 	{
-		Boolean ShouldEnd(Course medicationCourse);
+		Boolean ShouldEnd(ICourse medicationCourse);
 	}
 }

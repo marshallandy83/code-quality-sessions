@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Linq;
-using SRP.Issuances;
+using Moq;
 using Xunit;
 
 namespace SRP.Courses.Selection
@@ -15,10 +14,6 @@ namespace SRP.Courses.Selection
 				expectedShouldEnd,
 				new ActiveCoursesSelector()
 					.ShouldEnd(
-						new Course(
-							preparationTerm: String.Empty,
-							status: status,
-							issuances: Enumerable.Empty<Issuance>(),
-							Source.Local)));
+						Mock.Of<ICourse>(c => c.Status == status)));
 	}
 }

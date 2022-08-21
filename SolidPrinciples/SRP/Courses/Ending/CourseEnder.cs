@@ -18,7 +18,7 @@ namespace SRP.Courses.Ending
 			_selector = selector;
 		}
 
-		public void End(Course medicationCourse, String reasonForEnding)
+		public void End(ICourse medicationCourse, String reasonForEnding)
 		{
 			if (_selector.ShouldEnd(medicationCourse))
 			{
