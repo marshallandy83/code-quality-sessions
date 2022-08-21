@@ -13,7 +13,7 @@ When applied correctly, the SOLID principles can help us to not only improve the
 
 The five principles spell out the word "SOLID" and are as follows:
 
-* [Single responsibility principle](./SRP/Readme.md)
+* [Single responsibility principle](./SolidPrinciples/SRP/Readme.md)
 * Open-closed principle
 * Liskov substitution principle
 * Interface segregation principle
@@ -37,4 +37,4 @@ We'll look at simplified examples of C# code that would benefit from the applica
 
 ------------------------
 
-Let's get started on the first principle, the [single responsibility principle](./SRP/Readme.md)...
+Let's get started on the first principle, the [single responsibility principle](./SolidPrinciples/SRP/Readme.md)...
