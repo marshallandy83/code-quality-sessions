@@ -1,0 +1,53 @@
+﻿<Window
+    x:Class="OCP.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:OCP"
+    mc:Ignorable="d"
+    Height="450"
+    Title="MainWindow"
+    Width="800">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="MinWidth" Value="90" />
+        </Style>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
+    <StackPanel Margin="10">
+        <WrapPanel
+            Margin="0,0,0,10"
+            VerticalAlignment="Top">
+            <GroupBox Header="Courses">
+                <WrapPanel MaxWidth="400">
+                    <Button IsEnabled="{Binding IsEndCourseButtonEnabled}">End course</Button>
+                    <Button IsEnabled="{Binding IsRestartCourseButtonEnabled}">Restart course</Button>
+                    <Button IsEnabled="{Binding IsEditButtonEnabled}">Edit</Button>
+                    <Button IsEnabled="{Binding IsViewCourseHistoryButtonEnabled}">View course history</Button>
+                </WrapPanel>
+            </GroupBox>
+            <GroupBox Header="Issuing">
+                <WrapPanel>
+                    <Button IsEnabled="{Binding IsIssueButtonEnabled}">Issue</Button>
+                    <Button IsEnabled="{Binding IsReprintButtonEnabled}">Reprint</Button>
+                    <Button IsEnabled="{Binding IsRequestIssueButtonEnabled}">Request issue</Button>
+                </WrapPanel>
+            </GroupBox>
+        </WrapPanel>
+        <local:MultiSelectDataGrid
+            AutoGenerateColumns="False"
+            Height="600"
+            ItemsSource="{Binding MedicationCourses}"
+            SelectedItems="{Binding SelectedMedicationCourses, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+            SelectionMode="Extended"
+            SelectionUnit="FullRow">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Preparation" Binding="{Binding PreparationName}"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+            </DataGrid.Columns>
+        </local:MultiSelectDataGrid>
+    </StackPanel>
+</Window>
