@@ -12,32 +12,38 @@ namespace OCP
 					new MedicationCourse
 					{
 						PreparationName = "Aspirin 75mg tablets",
-						Status = Status.Active
+						Status = Status.Active,
+						Source = Source.Local,
 					},
 					new MedicationCourse
 					{
 						PreparationName = "Paracetamol 500mg capsules",
-						Status = Status.Active
+						Status = Status.Active,
+						Source = Source.Local,
 					},
 					new MedicationCourse
 					{
 						PreparationName = "Strepsils",
-						Status = Status.Active
+						Status = Status.Active,
+						Source = Source.External,
 					},
 					new MedicationCourse
 					{
 						PreparationName = "Fluoxetine 20mg capsules",
-						Status = Status.Active
+						Status = Status.Active,
+						Source = Source.Local,
 					},
 					new MedicationCourse
 					{
 						PreparationName = "Labetalol 100mg tablets",
-						Status = Status.Ended
+						Status = Status.Ended,
+						Source = Source.Local,
 					},
 					new MedicationCourse
 					{
 						PreparationName = "Doxazosin 10mg tablets",
-						Status = Status.Ended
+						Status = Status.Ended,
+						Source = Source.Local,
 					}
 				});
 	}

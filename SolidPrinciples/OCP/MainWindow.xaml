@@ -47,6 +47,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Preparation" Binding="{Binding PreparationName}"/>
                 <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+                <DataGridTextColumn Header="Source" Binding="{Binding Source}"/>
             </DataGrid.Columns>
         </local:MultiSelectDataGrid>
     </StackPanel>

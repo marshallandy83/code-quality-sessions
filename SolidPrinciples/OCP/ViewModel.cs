@@ -15,38 +15,39 @@ namespace OCP
 		{
 			IEnumerable<MedicationCourse> selectedMedicationCourses = _selectedMedicationCourses.Cast<MedicationCourse>();
 
+			Boolean areAllSelectedCoursesLocal = selectedMedicationCourses.All(course => course.Source == Source.Local);
 			Boolean isSingleMedicationCourseSelected = selectedMedicationCourses.Count() == 1;
 
 			if (selectedMedicationCourses.All(course => course.Status == Status.Active))
 			{
-				UpdateActionsFromActiveMedicationCourses(isSingleMedicationCourseSelected);
+				UpdateActionsFromActiveMedicationCourses(areAllSelectedCoursesLocal, isSingleMedicationCourseSelected);
 			}
 			else if (selectedMedicationCourses.All(course => course.Status == Status.Ended))
 			{
-				UpdateActionsFromEndedMedicationCourses(isSingleMedicationCourseSelected);
+				UpdateActionsFromEndedMedicationCourses(areAllSelectedCoursesLocal, isSingleMedicationCourseSelected);
 			}
 			else
 			{
 				UpdateActionsFromMixedMedicationCourses();
 			}
 
-			IsRequestIssueButtonEnabled = true;
-			IsReprintButtonEnabled = true;
+			IsRequestIssueButtonEnabled = areAllSelectedCoursesLocal;
+			IsReprintButtonEnabled = areAllSelectedCoursesLocal;
 		}
 
-		private void UpdateActionsFromActiveMedicationCourses(Boolean isSingleMedicationCourseSelected)
+		private void UpdateActionsFromActiveMedicationCourses(Boolean areAllSelectedCoursesLocal, Boolean isSingleMedicationCourseSelected)
 		{
-			IsEndCourseButtonEnabled = true;
+			IsEndCourseButtonEnabled = areAllSelectedCoursesLocal;
 			IsRestartCourseButtonEnabled = false;
-			IsEditButtonEnabled = isSingleMedicationCourseSelected;
-			IsIssueButtonEnabled = isSingleMedicationCourseSelected;
+			IsEditButtonEnabled = areAllSelectedCoursesLocal && isSingleMedicationCourseSelected;
+			IsIssueButtonEnabled = areAllSelectedCoursesLocal && isSingleMedicationCourseSelected;
 			IsViewCourseHistoryButtonEnabled = isSingleMedicationCourseSelected;
 		}
 
-		private void UpdateActionsFromEndedMedicationCourses(Boolean isSingleMedicationCourseSelected)
+		private void UpdateActionsFromEndedMedicationCourses(Boolean areAllSelectedCoursesLocal, Boolean isSingleMedicationCourseSelected)
 		{
 			IsEndCourseButtonEnabled = false;
-			IsRestartCourseButtonEnabled = true;
+			IsRestartCourseButtonEnabled = areAllSelectedCoursesLocal;
 			IsEditButtonEnabled = false;
 			IsIssueButtonEnabled = false;
 			IsViewCourseHistoryButtonEnabled = isSingleMedicationCourseSelected;
